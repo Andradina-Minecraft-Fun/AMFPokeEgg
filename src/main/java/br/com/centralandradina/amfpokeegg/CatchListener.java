@@ -29,6 +29,8 @@ public class CatchListener  implements Listener
 		NBTEntity nbt = new NBTEntity(entity);
 		player.sendMessage(nbt.toString());
 		plugin.getServer().getLogger().info(nbt.toString());
+
+		event.setCancelled(true);
 	}
 
 }
