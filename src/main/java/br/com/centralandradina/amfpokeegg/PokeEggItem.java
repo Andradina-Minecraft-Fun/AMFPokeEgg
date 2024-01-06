@@ -25,9 +25,6 @@ public class PokeEggItem extends ItemStack {
 	public PokeEggItem(JavaPlugin plugin) {
 		String item_material = plugin.getConfig().getString("unique.material");
 		String item_name = plugin.getConfig().getString("unique.name");
-		// ArrayList<String> lore = (ArrayList<String>) ;
-		// String lore = ChatColor.translateAlternateColorCodes('&',
-		// plugin.getConfig().getString("Swords.lore"));
 
 		// set material and amount
 		this.setType(Material.getMaterial(item_material));
@@ -35,7 +32,7 @@ public class PokeEggItem extends ItemStack {
 
 		// set item name
 		ItemMeta meta = this.getItemMeta();
-		meta.setDisplayName(item_name);
+		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&f" + item_name));
 
 		ArrayList<String> lore = new ArrayList<String>();
 		for (String s : plugin.getConfig().getStringList("unique.empty-lore")) {
