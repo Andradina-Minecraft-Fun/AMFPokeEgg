@@ -4,12 +4,24 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class main extends JavaPlugin
 {
+	
 	@Override
-	public void onLoad() { }
+	public void onEnable() 
+	{
+		
+
+		getServer().getPluginManager().registerEvents(new CatchListener(this), this);
+		getServer().getPluginManager().registerEvents(new ReleaseListener(this), this);
+
+		getLogger().info("AMFPokeEgg enabled");
+	}
 
 	@Override
-	public void onEnable() { }
+	public void onDisable()
+	{
+		getLogger().info("AMFPokeEgg disabled");
+	}
 
-	@Override
-	public void onDisable() { }
+	
+	
 }

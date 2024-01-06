@@ -2,7 +2,5 @@ name: AMFPokeEgg
 main: br.com.centralandradina.amfpokeegg.main
 version: 1.0
 api-version: 1.20
-  
-depend: []
-  
-commands: []
+softdepend:
+  - NBTAPI
