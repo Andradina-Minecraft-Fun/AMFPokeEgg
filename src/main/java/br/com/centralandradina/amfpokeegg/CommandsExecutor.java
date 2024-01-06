@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
  */
 public class CommandsExecutor implements CommandExecutor
 {
-	private final AMFPokeEgg plugin;
+	protected AMFPokeEgg plugin;
 
 	/**
 	 * constructor
@@ -32,7 +32,6 @@ public class CommandsExecutor implements CommandExecutor
 		// pokeegg command
 		if (commandName.equals("pokeegg"))
 		{
-			this.plugin.getLogger().info("OK1");
 			// help
 			if(args.length == 0) {
 				sender.sendMessage("/pokeegg give <player>");

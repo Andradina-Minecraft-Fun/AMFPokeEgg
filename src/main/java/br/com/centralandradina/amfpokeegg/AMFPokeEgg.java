@@ -29,19 +29,23 @@ public class AMFPokeEgg extends JavaPlugin {
 		// set default configs
 		FileConfiguration config = getConfig();
 		config.options().copyDefaults(true);
-		config.addDefault("unique.name", "PokeEgg");
+		config.addDefault("unique.name", "&f&lPoke&c&lEgg");
 		// https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 		config.addDefault("unique.material", "SLIME_BALL");
 
 		List<String> emptyLore = new ArrayList<>();
-		emptyLore.add("right click on the entity");
-		emptyLore.add("to catch");
-		config.addDefault("unique.empty-lore", emptyLore);
+		emptyLore.add("&7right click to catch");
+		config.addDefault("empty-lore", emptyLore);
 
 		List<String> storedLore = new ArrayList<>();
-		storedLore.add("right click on block to");
-		storedLore.add("release");
-		config.addDefault("unique.nonempty-lore", storedLore);
+		storedLore.add("&7right click to release");
+		storedLore.add("");
+		storedLore.add("&fType: &b%type%");
+		storedLore.add("&fName: &b%name%");
+		config.addDefault("nonempty-lore", storedLore);
+
+		config.addDefault("show-villager-trades", true);
+
 
 		// https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 		List<String> entities = new ArrayList<>();

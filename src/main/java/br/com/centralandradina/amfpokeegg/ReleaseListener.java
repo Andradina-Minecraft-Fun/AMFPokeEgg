@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class ReleaseListener implements Listener 
 {
-	private final AMFPokeEgg plugin;
+	protected AMFPokeEgg plugin;
 	
 	public ReleaseListener(AMFPokeEgg plugin) {
         this.plugin = plugin;

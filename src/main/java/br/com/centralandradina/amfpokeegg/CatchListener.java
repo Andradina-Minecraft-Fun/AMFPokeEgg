@@ -1,8 +1,5 @@
 package br.com.centralandradina.amfpokeegg;
 
-import de.tr7zw.nbtapi.NBTEntity;
-import de.tr7zw.nbtapi.NBTItem;
-import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -11,14 +8,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 /**
  * class to handle catch entity
  */
 public class CatchListener implements Listener
 {
-	private final AMFPokeEgg plugin;
+	protected AMFPokeEgg plugin;
 
 	/**
 	 * constructor
@@ -48,15 +44,17 @@ public class CatchListener implements Listener
 		if (!event.getHand().equals(EquipmentSlot.HAND)) {
 			return;
 		}
+
+		// create a pokeegg
+		PokeEggItem pokeegg = new PokeEggItem(item, this.plugin);
 		
 		// verify if item on hand are a pokeegg
-		NBTItem nbtItem = new NBTItem(item);
-		if(!nbtItem.hasTag("pokeegg-empty")) {
+		if(!pokeegg.isPokeEgg()) {
 			return;
 		}
 
 		// verify if is empty
-		if(!nbtItem.getBoolean("pokeegg-empty")) {
+		if(!pokeegg.isEmpty()) {
 			player.sendMessage(this.plugin.color(this.plugin.getConfig().getString("messages.not-empty")));
 			event.setCancelled(true);
 			return;
@@ -81,31 +79,17 @@ public class CatchListener implements Listener
 
 		// verify if player has this permission
 
-		// get nbt from entity
-		NBTEntity nbt = new NBTEntity(entity);
-
 		// store NBT on pokeegg
-		nbtItem.setString("pokeegg-nbt", nbt.toString());
-		nbtItem.setString("pokeegg-type", entity.getType().toString());
+		pokeegg.catchEntity(entity);
 
+		// parse lore of item
+		pokeegg.parseLore();
+	
 		// remove entity from word
 		entity.remove();
 
 		// notify player
 		player.sendMessage(this.plugin.color(this.plugin.getConfig().getString("messages.catched")));
-
-		// update and save nbt
-		nbtItem.setBoolean("pokeegg-empty", false);
-		nbtItem.applyNBT(item);
-
-		// change lore of item (if villager, show itens to sell and profission)
-		ItemMeta meta = item.getItemMeta();
-		ArrayList<String> lore = new ArrayList<String>();
-		for (String s : this.plugin.getConfig().getStringList("unique.nonempty-lore")) {
-			lore.add(this.plugin.color(s));
-		}
-		meta.setLore(lore);
-		item.setItemMeta(meta);
 
 		// cancel event
 		event.setCancelled(true);
