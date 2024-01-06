@@ -1,5 +1,6 @@
 package br.com.centralandradina.amfpokeegg;
 
+import br.com.centralandradina.LanguageUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.bukkit.ChatColor;
@@ -8,15 +9,21 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
+
 /**
  * main class
  */
-public class AMFPokeEgg extends JavaPlugin {
+public class AMFPokeEgg extends JavaPlugin 
+{
+
+	LanguageUtils langs;
+	
 	/**
 	 * on enable
 	 */
-	@Override
-	public void onEnable() {
+ 	@Override
+	public void onEnable() 
+	{
 		PluginManager pluginManager = this.getServer().getPluginManager();
 
 		// NBTAPI
@@ -35,13 +42,13 @@ public class AMFPokeEgg extends JavaPlugin {
 
 		List<String> emptyLore = new ArrayList<>();
 		emptyLore.add("&7right click to catch");
+		emptyLore.add("");
 		config.addDefault("empty-lore", emptyLore);
 
 		List<String> storedLore = new ArrayList<>();
 		storedLore.add("&7right click to release");
 		storedLore.add("");
 		storedLore.add("&fType: &b%type%");
-		storedLore.add("&fName: &b%name%");
 		config.addDefault("nonempty-lore", storedLore);
 
 		config.addDefault("show-villager-trades", true);
@@ -59,6 +66,11 @@ public class AMFPokeEgg extends JavaPlugin {
 
 		saveConfig();
 
+		// load language
+		langs = new LanguageUtils(this);
+		langs.loadTranslations("pt_br");
+		// langs.loadTranslations("en_us");
+
 		// register listeners
 		getServer().getPluginManager().registerEvents(new CatchListener(this), this);
 		getServer().getPluginManager().registerEvents(new ReleaseListener(this), this);
@@ -74,7 +86,8 @@ public class AMFPokeEgg extends JavaPlugin {
 	 * on disable
 	 */
 	@Override
-	public void onDisable() {
+	public void onDisable() 
+	{
 		getLogger().info("AMFPokeEgg disabled");
 	}
 

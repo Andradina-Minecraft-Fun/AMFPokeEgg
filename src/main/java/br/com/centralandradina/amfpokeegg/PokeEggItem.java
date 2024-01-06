@@ -1,7 +1,12 @@
 package br.com.centralandradina.amfpokeegg;
 
+import de.tr7zw.nbtapi.NBTCompound;
+import de.tr7zw.nbtapi.NBTCompoundList;
+import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.nbtapi.NBTEntity;
 import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.nbtapi.iface.ReadWriteNBT;
+import de.tr7zw.nbtapi.iface.ReadWriteNBTCompoundList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,6 +15,11 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+
+
+
+
 
 /**
  * class of the PokeEgg
@@ -98,8 +108,11 @@ public class PokeEggItem
 		
 		// store data of entity into pokeegg
 		this.nbtItem.setString("pokeegg-nbt", nbt.toString());
+		this.nbtItem.setString("pokeegg-key", entity.getType().getKey().toString());
 		this.nbtItem.setString("pokeegg-type", entity.getType().toString());
 		this.nbtItem.setString("pokeegg-name", entity.getName());
+
+		this.plugin.getLogger().info("KEY: " + entity.getType().getKey().toString());
 
 		// update and save nbt
 		this.nbtItem.setBoolean("pokeegg-empty", false);
@@ -139,18 +152,65 @@ public class PokeEggItem
 			// get infos
 			String entity_name = this.nbtItem.getString("pokeegg-name");
 			String entity_type = this.nbtItem.getString("pokeegg-type");
+			String entity_key = "entity." + this.nbtItem.getString("pokeegg-key").replace(":", ".");
 
 			// set lore
 			ArrayList<String> lore = new ArrayList<String>();
 			for (String s : item_lore) {
-				s = s.replace("%name%", entity_name);
-				s = s.replace("%type%", entity_type);
+				s = s.replace("%type%", this.plugin.langs.getTranslation(entity_key) );
 				lore.add(ChatColor.translateAlternateColorCodes('&', "&f" + s));
 			}
 
 			// verify if show villager trades on config
-			// verify if its a villager
-				// add itens and prices
+			if(entity_type == "VILLAGER") {
+
+				// verify if its a villager
+				if(this.plugin.getConfig().getBoolean("show-villager-trades")) {
+
+					// add itens and prices	
+					NBTContainer container = new NBTContainer(this.nbtItem.getString("pokeegg-nbt"));
+					NBTCompound offers = container.getCompound("Offers");
+					NBTCompoundList nbtRecipes = offers.getCompoundList("Recipes");
+					for(ReadWriteNBT nbtRecipe : nbtRecipes) {
+
+						// get final item
+						ReadWriteNBT nbtSell = nbtRecipe.getCompound("sell");
+
+						int sell_amount = nbtSell.getInteger("Count");
+
+						// if enchanted book
+						if (nbtSell.getString("id").equals("minecraft:enchanted_book")) {
+
+							ReadWriteNBTCompoundList nbtEnchants = nbtSell.getCompound("tag").getCompoundList("StoredEnchantments");
+
+							// loop enchants
+							for(ReadWriteNBT nbtEnchant : nbtEnchants) {
+
+								String enchantKey = nbtEnchant.getString("id");
+								int enchantLevel = nbtEnchant.getInteger("lvl");
+
+								// translate and add to lore
+								String sSellItemName = this.plugin.langs.getTranslation("enchantment." + enchantKey.replace(":", ".") ) + " "  + this.plugin.langs.getTranslation("enchantment.level." + enchantLevel ) ;
+								
+								lore.add(sSellItemName);
+							}
+						}
+
+						// if item
+						else {
+
+							String itemKey = nbtSell.getString("id");
+
+							// translate and add to lore
+							String sSellItemName = this.plugin.langs.getTranslation("item." + itemKey.replace(":", ".") );
+							lore.add(sSellItemName);
+							
+						}
+
+						
+					}
+				}
+			}
 
 			meta.setLore(lore);
 			this.pokeegg.setItemMeta(meta);

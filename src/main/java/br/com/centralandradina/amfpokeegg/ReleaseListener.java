@@ -72,9 +72,10 @@ public class ReleaseListener implements Listener
 		String[] arr = {"Pos", "Paper.Origin", "FallFlying", "Motion"};
 		Arrays.stream(arr).forEach(container::removeKey);
 
-		this.plugin.getLogger().info("\n\n");
-		this.plugin.getLogger().info(container.toString());
-		this.plugin.getLogger().info("\n\n");
+		// log
+		// this.plugin.getLogger().info("\n\n");
+		// this.plugin.getLogger().info(container.toString());
+		// this.plugin.getLogger().info("\n\n");
 
 		// spawn entity
 		player.getWorld().spawnEntity(location, EntityType.fromName(type), CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
