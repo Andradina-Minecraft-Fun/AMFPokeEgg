@@ -3,8 +3,8 @@ An pokeegg to catch mobs
 
 # Features
 - [x] command to give the poke
-- [ ] catch entities and add the basic lore
-- [ ] release entities
+- [x] catch entities and add the basic lore
+- [x] release entities
 - [x] configure material type of poke
 - [x] configure name and lore of poke
 - [x] configure what entities can be catch
@@ -12,6 +12,7 @@ An pokeegg to catch mobs
 - [ ] create a craft for unique or reusable
 - [ ] add reusable items
 - [ ] add placeholders for messages
+- [ ] look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall
 
 # References
 

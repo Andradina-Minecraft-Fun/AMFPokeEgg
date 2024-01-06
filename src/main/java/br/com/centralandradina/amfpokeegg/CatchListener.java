@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,7 +40,7 @@ public class CatchListener implements Listener {
 	public void onPlayerInteract(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
 
-		// verify if item on hand are a pokeegg
+		// verify if item on hand are an item
 		ItemStack item = player.getEquipment().getItemInMainHand();
 		if((item == null) || (item.getAmount() == 0) || (item.getType() == Material.AIR)) {
 			return;
@@ -50,7 +51,7 @@ public class CatchListener implements Listener {
 			return;
 		}
 		
-		// get nbt
+		// verify if item on hand are a pokeegg
 		NBTItem nbtItem = new NBTItem(item);
 		if(!nbtItem.hasTag("pokeegg-empty")) {
 			return;
@@ -87,6 +88,7 @@ public class CatchListener implements Listener {
 
 		// store NBT on pokeegg
 		nbtItem.setString("pokeegg-nbt", nbt.toString());
+		nbtItem.setString("pokeegg-type", entity.getType().toString());
 
 		// remove entity from word
 		entity.remove();

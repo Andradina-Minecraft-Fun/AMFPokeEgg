@@ -51,6 +51,7 @@ public class main extends JavaPlugin {
 		config.addDefault("messages.entity-no-permitted", "Entity no permitted");
 		config.addDefault("messages.catched", "Entity catched");
 		config.addDefault("messages.not-empty", "PokeEgg not empty");
+		config.addDefault("messages.is-empty", "PokeEgg is empty");
 
 		saveConfig();
 
