@@ -11,7 +11,11 @@ import org.json.simple.parser.JSONParser;
 
 
 
-
+/**
+ * Helper to translate based on Minecraft translate file
+ * 
+ * idea from https://github.com/LOOHP/InteractiveChat/blob/6a5d9a60df31fe4f24ee36880c65c1855725f8f5/src/main/java/com/loohp/interactivechat/utils/LanguageUtils.java#L66
+ */
 public class LanguageUtils
 {
 
