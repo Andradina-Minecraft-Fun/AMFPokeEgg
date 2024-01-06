@@ -53,6 +53,10 @@ public class AMFPokeEgg extends JavaPlugin
 
 		config.addDefault("show-villager-trades", true);
 
+		config.addDefault("trade-category-lore", "&f- Trades");
+		config.addDefault("trade-item-lore", "&7%item%");
+		config.addDefault("trade-enchant-lore", "   &7%enchant% %level%");
+
 
 		// https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 		List<String> entities = new ArrayList<>();

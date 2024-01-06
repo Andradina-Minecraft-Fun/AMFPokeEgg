@@ -112,8 +112,6 @@ public class PokeEggItem
 		this.nbtItem.setString("pokeegg-type", entity.getType().toString());
 		this.nbtItem.setString("pokeegg-name", entity.getName());
 
-		this.plugin.getLogger().info("KEY: " + entity.getType().getKey().toString());
-
 		// update and save nbt
 		this.nbtItem.setBoolean("pokeegg-empty", false);
 		this.saveNBT();
@@ -167,45 +165,90 @@ public class PokeEggItem
 				// verify if its a villager
 				if(this.plugin.getConfig().getBoolean("show-villager-trades")) {
 
+					// retrieve lore of itens
+					String tradeCategoryLore = this.plugin.getConfig().getString("trade-category-lore");
+					String tradeItemLore = this.plugin.getConfig().getString("trade-item-lore");
+					String tradeEnchantLore = this.plugin.getConfig().getString("trade-enchant-lore");
+
 					// add itens and prices	
 					NBTContainer container = new NBTContainer(this.nbtItem.getString("pokeegg-nbt"));
 					NBTCompound offers = container.getCompound("Offers");
 					NBTCompoundList nbtRecipes = offers.getCompoundList("Recipes");
+					int iLores = 0;
 					for(ReadWriteNBT nbtRecipe : nbtRecipes) {
+
+						// verify first line of trades
+						if(iLores == 0) {
+							lore.add(this.plugin.color(tradeCategoryLore));
+						}
+						iLores++;
 
 						// get final item
 						ReadWriteNBT nbtSell = nbtRecipe.getCompound("sell");
 
+						String itemKey = nbtSell.getString("id").replace(":", ".");
 						int sell_amount = nbtSell.getInteger("Count");
 
-						// if enchanted book
-						if (nbtSell.getString("id").equals("minecraft:enchanted_book")) {
+						// translate and add to lore
+						String sSellItemName = this.plugin.langs.getTranslation("item." + itemKey );
+						if(sSellItemName.equals("item." + itemKey )) {
+							sSellItemName = this.plugin.langs.getTranslation("block." + itemKey  );
+						}
+						lore.add(this.plugin.color(tradeItemLore.replace("%item%", sSellItemName)));
 
+						// verify tag
+						if(nbtSell.hasTag("tag")) {
+
+							// loop StoredEnchantments
 							ReadWriteNBTCompoundList nbtEnchants = nbtSell.getCompound("tag").getCompoundList("StoredEnchantments");
-
-							// loop enchants
 							for(ReadWriteNBT nbtEnchant : nbtEnchants) {
 
 								String enchantKey = nbtEnchant.getString("id");
 								int enchantLevel = nbtEnchant.getInteger("lvl");
 
 								// translate and add to lore
-								String sSellItemName = this.plugin.langs.getTranslation("enchantment." + enchantKey.replace(":", ".") ) + " "  + this.plugin.langs.getTranslation("enchantment.level." + enchantLevel ) ;
+								String sSellItemEnchantName = this.plugin.langs.getTranslation("enchantment." + enchantKey.replace(":", ".") );
+								String sSellItemEnchantLevel = this.plugin.langs.getTranslation("enchantment.level." + enchantLevel );
 								
-								lore.add(sSellItemName);
+								lore.add(this.plugin.color(tradeEnchantLore.replace("%item%", sSellItemName).replace("%enchant%", sSellItemEnchantName).replace("%level%", sSellItemEnchantLevel)));
 							}
+
+							// loop Enchantments
+							nbtEnchants = nbtSell.getCompound("tag").getCompoundList("Enchantments");
+							for(ReadWriteNBT nbtEnchant : nbtEnchants) {
+
+								String enchantKey = nbtEnchant.getString("id");
+								int enchantLevel = nbtEnchant.getInteger("lvl");
+
+								// translate and add to lore
+								String sSellItemEnchantName = this.plugin.langs.getTranslation("enchantment." + enchantKey.replace(":", ".") );
+								String sSellItemEnchantLevel = this.plugin.langs.getTranslation("enchantment.level." + enchantLevel );
+								
+								lore.add(this.plugin.color(tradeEnchantLore.replace("%item%", sSellItemName).replace("%enchant%", sSellItemEnchantName).replace("%level%", sSellItemEnchantLevel)));
+							}
+
+
+
+							// // verify StoredEnchantes
+							// if(nbtSell.getCompound("tag").has("StoredEnchantments")) {
+							// 	ReadWriteNBTCompoundList nbtEnchants = nbtSell.getCompound("tag").getCompoundList("StoredEnchantments");
+
+							// 		// loop enchants
+							// 		for(ReadWriteNBT nbtEnchant : nbtEnchants) {
+
+							// 			String enchantKey = nbtEnchant.getString("id");
+							// 			int enchantLevel = nbtEnchant.getInteger("lvl");
+
+							// 			// translate and add to lore
+							// 			String sSellItemName = this.plugin.langs.getTranslation("enchantment." + enchantKey.replace(":", ".") ) + " "  + this.plugin.langs.getTranslation("enchantment.level." + enchantLevel ) ;
+										
+							// 			lore.add(sSellItemName);
+							// 		}
+									
+							// }
+
 						}
 
-						// if item
-						else {
-
-							String itemKey = nbtSell.getString("id");
-
-							// translate and add to lore
-							String sSellItemName = this.plugin.langs.getTranslation("item." + itemKey.replace(":", ".") );
-							lore.add(sSellItemName);
-							
-						}
 
 						
 					}
