@@ -13,8 +13,10 @@ An pokeegg to catch mobs
 - [ ] configure permission by entity
 - [ ] create a craft for unique or reusable
 - [ ] add reusable items
-- [ ] add placeholders for messages
+- [x] add placeholders for messages
 - [ ] look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall
+
+# Integrations
 - [ ] prevent catch and release mobs on protected area on RedProtec
 - [ ] prevent catch and release mobs on protected area on WorldGuard
 - [ ] prevent catch and release mobs on protected area on GriefPrevention
