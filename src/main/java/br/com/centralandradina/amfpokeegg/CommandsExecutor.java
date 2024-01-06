@@ -1,27 +1,22 @@
 package br.com.centralandradina.amfpokeegg;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
+
 
 /**
  * class to handle commands
  */
 public class CommandsExecutor implements CommandExecutor
 {
-	private final JavaPlugin plugin;
+	private final AMFPokeEgg plugin;
 
 	/**
 	 * constructor
 	 */
-	public CommandsExecutor(JavaPlugin plugin)
+	public CommandsExecutor(AMFPokeEgg plugin)
 	{
         this.plugin = plugin;
     }

@@ -2,16 +2,16 @@ package br.com.centralandradina.amfpokeegg;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
 /**
  * main class
  */
-public class main extends JavaPlugin {
+public class AMFPokeEgg extends JavaPlugin {
 	/**
 	 * on enable
 	 */

@@ -1,28 +1,20 @@
 package br.com.centralandradina.amfpokeegg;
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
+import de.tr7zw.nbtapi.NBTItem;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import de.tr7zw.nbtapi.NBTItem;
-
-public class PokeEggItem extends ItemStack {
-	public PokeEggItem(JavaPlugin plugin) {
+/**
+ * class of the PokeEgg
+ */
+public class PokeEggItem extends ItemStack 
+{
+	public PokeEggItem(AMFPokeEgg plugin)
+	{
 		String item_material = plugin.getConfig().getString("unique.material");
 		String item_name = plugin.getConfig().getString("unique.name");
 
