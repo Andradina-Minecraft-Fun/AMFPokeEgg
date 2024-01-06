@@ -31,39 +31,38 @@ public class ReleaseListener implements Listener
 	@EventHandler(ignoreCancelled = true)
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
-		Player player = event.getPlayer();
+		// Player player = event.getPlayer();
 
-		// recupera o item
-		ItemStack item = event.getItem();
-		if(item.getType().equals(Material.CAT_SPAWN_EGG)) {
-			player.sendMessage("SIM");
+		// // recupera o item
+		// ItemStack item = event.getItem();
+		// if((item == null) || (item.getAmount() == 0) || (item.getType() == Material.AIR)) {
+		// 	return;
+		// }
+
+		// if(item.getType().equals(Material.CAT_SPAWN_EGG)) {
+		// 	player.sendMessage("SIM");
 
 
-			// cancela o evento
-			event.setCancelled(true);
+		// 	// cancela o evento
+		// 	event.setCancelled(true);
 
-			// recupera o local
-			Location location = event.getInteractionPoint() == null ? event.getPlayer().getLocation() : event.getInteractionPoint();
+		// 	// recupera o local
+		// 	Location location = event.getInteractionPoint() == null ? event.getPlayer().getLocation() : event.getInteractionPoint();
 
-			// olhar a face clicada, e por o a menos, para spawnar do lado ou em cima do bloco clicado
+		// 	// olhar a face clicada, e por o a menos, para spawnar do lado ou em cima do bloco clicado
 
-			// cria o container nbt
-			NBTContainer container = new NBTContainer(teste);
+		// 	// cria o container nbt
+		// 	NBTContainer container = new NBTContainer(teste);
 
-			removeKeys(container, "Pos", "Paper.Origin", "FallFlying", "Motion", "UUID");
+		// 	removeKeys(container, "Pos", "Paper.Origin", "FallFlying", "Motion", "UUID");
 
-			// cria o entity
-			player.getWorld().spawnEntity(location, EntityType.VILLAGER, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
-				NBTEntity nbtEntity = new NBTEntity(entity);
-				nbtEntity.mergeCompound(container);
-			});
+		// 	// cria o entity
+		// 	player.getWorld().spawnEntity(location, EntityType.VILLAGER, CreatureSpawnEvent.SpawnReason.CUSTOM, entity -> {
+		// 		NBTEntity nbtEntity = new NBTEntity(entity);
+		// 		nbtEntity.mergeCompound(container);
+		// 	});
 			
-		}
-		// player.sendMessage("NO: " + item.getType().toString());
-
-		// 
-
-		// NBTContainer container = new NBTContainer(bean.getNbtEntity());
+		// }
 	}
 
 	private void removeKeys(NBTContainer container, String... keys) {
