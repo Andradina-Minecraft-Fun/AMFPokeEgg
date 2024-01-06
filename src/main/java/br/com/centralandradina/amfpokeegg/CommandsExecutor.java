@@ -53,7 +53,7 @@ public class CommandsExecutor implements CommandExecutor
 				PokeEggItem i = new PokeEggItem(this.plugin);
 
 				// add item to player inventary
-				player.getInventory().addItem(i);
+				player.getInventory().addItem(i.getItemStack());
 
 				// finish
 				player.sendMessage("PokeEgg foi dada");

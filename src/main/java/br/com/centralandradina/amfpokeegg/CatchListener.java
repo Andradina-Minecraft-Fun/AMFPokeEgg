@@ -13,12 +13,11 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-
-
 /**
  * class to handle catch entity
  */
-public class CatchListener implements Listener {
+public class CatchListener implements Listener
+{
 	private final AMFPokeEgg plugin;
 
 	/**
@@ -26,20 +25,22 @@ public class CatchListener implements Listener {
 	 * 
 	 * @param plugin
 	 */
-	public CatchListener(AMFPokeEgg plugin) {
+	public CatchListener(AMFPokeEgg plugin)
+	{
 		this.plugin = plugin;
 	}
 
 	/**
-	 * evento trigger when player interact with some entity
+	 * event to trigger when player interact with some entity
 	 */
 	@EventHandler(ignoreCancelled = true)
-	public void onPlayerInteract(PlayerInteractEntityEvent event) {
+	public void onPlayerInteract(PlayerInteractEntityEvent event)
+	{
 		Player player = event.getPlayer();
 
 		// verify if item on hand are an item
 		ItemStack item = player.getEquipment().getItemInMainHand();
-		if((item == null) || (item.getAmount() == 0) || (item.getType() == Material.AIR)) {
+		if((item == null) || (item.getAmount() == 0) || (item.getType() == Material.AIR)){
 			return;
 		}
 
