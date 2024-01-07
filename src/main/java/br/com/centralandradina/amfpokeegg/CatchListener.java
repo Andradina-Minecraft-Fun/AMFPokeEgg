@@ -63,6 +63,13 @@ public class CatchListener implements Listener
 		// verify if entity exists
 		Entity entity = event.getRightClicked();
 
+		// verify if are protected
+		if(!this.plugin.protectionManager.canCapture(entity.getLocation(), player)) {
+			player.sendMessage(this.plugin.color(this.plugin.getConfig().getString("messages.location-no-permitted")));
+			event.setCancelled(true);
+			return;
+		}
+
 		// verify if entity is on the list of permission
 		boolean isPermited = false;
 		for (String sEntity : plugin.getConfig().getStringList("entities")) {

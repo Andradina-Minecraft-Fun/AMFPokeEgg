@@ -19,7 +19,7 @@ An PokeEgg to catch and release mobs
 - [ ] look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall
 
 # Integrations
-- [ ] prevent catch and release mobs on protected area on RedProtec
+- [x] prevent catch and release mobs on protected area on RedProtec
 - [ ] prevent catch and release mobs on protected area on WorldGuard
 - [ ] prevent catch and release mobs on protected area on GriefPrevention
 - [ ] prevent catch and release mobs on protected area on Towny
@@ -27,6 +27,12 @@ An PokeEgg to catch and release mobs
 - [ ] prevent catch pets from MyPet
 - [ ] prevent catch pets from SimplePets
 - [ ] configue if can catch or not MythicMob
+
+# Issues/References
+
+- RedProtect block interaction with entities before us, so, some entities can be permited with "interact with animals", some others no. Anyway, player cannot cautch entity, but error message will be trigged by redprotec
+- RedProtect can enable capture and release on some entities if "interact with animals" are enabled, so we block
+- WordGuard can enable capture and release if "interact" flag are enabled, so we block
 
 # References
 

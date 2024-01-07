@@ -16,7 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class AMFPokeEgg extends JavaPlugin 
 {
 
-	LanguageUtils langs;
+	public LanguageUtils langs;
+	public ProtectionManager protectionManager;
 	
 	/**
 	 * on enable
@@ -32,6 +33,9 @@ public class AMFPokeEgg extends JavaPlugin
 			pluginManager.disablePlugin(this);
 			return;
 		}
+
+		// Create ProtectionManager
+		protectionManager = new ProtectionManager(this);
 
 		// set default configs
 		FileConfiguration config = getConfig();
@@ -65,6 +69,7 @@ public class AMFPokeEgg extends JavaPlugin
 		config.addDefault("entities", entities);
 
 		config.addDefault("messages.entity-no-permitted", "Entity no permitted");
+		config.addDefault("messages.location-no-permitted", "This location is not yours");
 		config.addDefault("messages.catched", "Entity catched");
 		config.addDefault("messages.not-empty", "PokeEgg not empty");
 		config.addDefault("messages.is-empty", "PokeEgg is empty");

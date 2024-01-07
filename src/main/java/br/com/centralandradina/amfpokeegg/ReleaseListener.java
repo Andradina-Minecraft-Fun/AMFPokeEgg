@@ -55,11 +55,19 @@ public class ReleaseListener implements Listener
 			return;
 		}
 
+		// retrieve location (@todo look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall)
+		Location location = event.getInteractionPoint() == null ? event.getPlayer().getLocation() : event.getInteractionPoint();
+
+		// verify if are protected
+		if(!this.plugin.protectionManager.canRelease(location, player)) {
+			player.sendMessage(this.plugin.color(this.plugin.getConfig().getString("messages.location-no-permitted")));
+			event.setCancelled(true);
+			return;
+		}
+
 		// cancel event
 		event.setCancelled(true);
 
-		// retrieve location (@todo look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall)
-		Location location = event.getInteractionPoint() == null ? event.getPlayer().getLocation() : event.getInteractionPoint();
 
 		// retrieve nbt from entity
 		String nbt = nbtItem.getString("pokeegg-nbt");
