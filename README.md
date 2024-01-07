@@ -20,7 +20,7 @@ Tested on PaperMC 1.20.2
 
 # Integrations
 - [x] prevent catch and release mobs on protected area on RedProtec
-- [ ] prevent catch and release mobs on protected area on WorldGuard
+- [x] prevent catch and release mobs on protected area on WorldGuard
 - [ ] prevent catch and release mobs on protected area on GriefPrevention
 - [ ] prevent catch and release mobs on protected area on Towny
 - [ ] prevent catch pets from Citizens
