@@ -19,6 +19,7 @@ Tested on PaperMC 1.20.2
 - [x] add placeholders for messages
 - [ ] look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall
 - [x] pokeegg when slimeball, can be usade to craft itens like slimeball, prevent it
+- [ ] cancel event when capture, for example with torch in hand
 
 # Integrations
 - [x] prevent catch and release mobs on protected area on RedProtec
