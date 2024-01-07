@@ -2,9 +2,18 @@ package br.com.centralandradina.amfpokeegg;
 
 import br.net.fabiozumbi12.RedProtect.Bukkit.RedProtect;
 import br.net.fabiozumbi12.RedProtect.Bukkit.Region;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
+
+
+
+
+
 
 
 /**
@@ -14,6 +23,7 @@ public class ProtectionManager
 {
 	protected AMFPokeEgg plugin;
 	protected boolean pluginRedProtect = false;
+	protected boolean pluginWorldGuard = false;
 
 	/**
 	 * constructor
@@ -29,6 +39,12 @@ public class ProtectionManager
 			this.plugin.getLogger().info("RedProtect hooked");
 			this.pluginRedProtect = true;
 		}
+
+		// verify if are using WorldGuard
+		if (pluginManager.isPluginEnabled("WorldGuard")) {
+			this.plugin.getLogger().info("WorldGuard hooked");
+			this.pluginWorldGuard = true;
+		}
 	}
 
 	/**
@@ -39,6 +55,13 @@ public class ProtectionManager
 		// verify redprotect
 		if(this.pluginRedProtect) {
 			if(!this.hasAccessRedProtect(entityLocation, player)) {
+				return false;
+			}
+		}
+
+		// verify worldguard
+		if(this.pluginWorldGuard) {
+			if(!this.hasAccessWorldGuard(entityLocation, player)) {
 				return false;
 			}
 		}
@@ -54,6 +77,13 @@ public class ProtectionManager
 		// verify redprotect
 		if(this.pluginRedProtect) {
 			if(!this.hasAccessRedProtect(entityLocation, player)) {
+				return false;
+			}
+		}
+
+		// verify worldguard
+		if(this.pluginWorldGuard) {
+			if(!this.hasAccessWorldGuard(entityLocation, player)) {
 				return false;
 			}
 		}
@@ -78,5 +108,36 @@ public class ProtectionManager
 		}
 
 		return true;
+	}
+
+	/**
+	 * do the verification of WorldGuard
+	 * nice reference https://worldguard.enginehub.org/en/latest/developer/regions/protection-query/
+	 */
+	public boolean hasAccessWorldGuard(Location entityLocation, Player player)
+	{
+
+		RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+		com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(entityLocation);
+		com.sk89q.worldedit.world.World world = BukkitAdapter.adapt(entityLocation.getWorld());
+
+		// verify if player has bypass permission
+		if (!WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(WorldGuardPlugin.inst().wrapPlayer(player), world)) {
+
+			// interact flag
+			if(query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(player), com.sk89q.worldguard.protection.flags.Flags.INTERACT)) {
+				return false;
+			}
+
+			// ride flag
+			if(query.testState(loc, WorldGuardPlugin.inst().wrapPlayer(player), com.sk89q.worldguard.protection.flags.Flags.RIDE)) {
+				return false;
+			}
+
+		}
+
+
+		return true;
+
 	}
 }

@@ -1,7 +1,7 @@
 # AMFPokeEgg
 An PokeEgg to catch and release mobs
 
-# 
+Tested on PaperMC 1.20.2
 
 # Features
 - [x] command to give the poke
@@ -32,7 +32,8 @@ An PokeEgg to catch and release mobs
 
 - RedProtect block interaction with entities before us, so, some entities can be permited with "interact with animals", some others no. Anyway, player cannot cautch entity, but error message will be trigged by redprotec
 - RedProtect can enable capture and release on some entities if "interact with animals" are enabled, so we block
-- WordGuard can enable capture and release if "interact" flag are enabled, so we block
+- WordGuard if "interact" flag are enabled, so we block
+- WordGuard if "ride" flag are enabled, so we block
 
 # References
 
