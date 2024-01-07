@@ -3,10 +3,14 @@ package br.com.centralandradina.amfpokeegg;
 import br.com.centralandradina.LanguageUtils;
 import java.util.ArrayList;
 import java.util.List;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 
 
@@ -44,6 +48,17 @@ public class AMFPokeEgg extends JavaPlugin
 		// https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 		config.addDefault("unique.material", "SLIME_BALL");
 
+		config.addDefault("unique.enable-craft", "true");
+		config.addDefault("unique.craft.A", "AIR");
+		config.addDefault("unique.craft.B", "AIR");
+		config.addDefault("unique.craft.C", "AIR");
+		config.addDefault("unique.craft.D", "EMERALD");
+		config.addDefault("unique.craft.E", "SLIME_BALL");
+		config.addDefault("unique.craft.F", "EMERALD");
+		config.addDefault("unique.craft.G", "AIR");
+		config.addDefault("unique.craft.H", "AIR");
+		config.addDefault("unique.craft.I", "AIR");
+
 		List<String> emptyLore = new ArrayList<>();
 		emptyLore.add("&7right click to catch");
 		emptyLore.add("");
@@ -73,6 +88,7 @@ public class AMFPokeEgg extends JavaPlugin
 		config.addDefault("messages.catched", "Entity catched");
 		config.addDefault("messages.not-empty", "PokeEgg not empty");
 		config.addDefault("messages.is-empty", "PokeEgg is empty");
+		config.addDefault("messages.craft-one-by-one", "PokeEgg can be craft one by one");
 
 		saveConfig();
 
@@ -84,9 +100,15 @@ public class AMFPokeEgg extends JavaPlugin
 		// register listeners
 		getServer().getPluginManager().registerEvents(new CatchListener(this), this);
 		getServer().getPluginManager().registerEvents(new ReleaseListener(this), this);
+		getServer().getPluginManager().registerEvents(new CraftListener(this), this);
 
 		// commands
 		this.getCommand("pokeegg").setExecutor(new CommandsExecutor(this));
+
+		// register recipes
+		if(config.getBoolean("unique.enable-craft")) {
+			PokeEggItem.registerRecipe(this, true);
+		}
 
 		// all ok
 		getLogger().info("AMFPokeEgg enabled");
@@ -98,6 +120,11 @@ public class AMFPokeEgg extends JavaPlugin
 	@Override
 	public void onDisable() 
 	{
+		HandlerList.unregisterAll(this);
+
+		Bukkit.removeRecipe(new NamespacedKey(this, "pokeegg-unique"));
+		Bukkit.removeRecipe(new NamespacedKey(this, "pokeegg-reusable"));
+
 		getLogger().info("AMFPokeEgg disabled");
 	}
 

@@ -22,8 +22,8 @@ public class ReleaseListener implements Listener
 	protected AMFPokeEgg plugin;
 	
 	public ReleaseListener(AMFPokeEgg plugin) {
-        this.plugin = plugin;
-    }
+		this.plugin = plugin;
+	}
 
 
 	@EventHandler(ignoreCancelled = true)

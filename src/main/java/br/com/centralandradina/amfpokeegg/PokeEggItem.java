@@ -10,11 +10,16 @@ import de.tr7zw.nbtapi.iface.ReadWriteNBTCompoundList;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+
 
 
 
@@ -65,6 +70,15 @@ public class PokeEggItem
 
 		// store nbt of item
 		this.nbtItem = new NBTItem(this.pokeegg);
+	}
+
+	/**
+	 * set uuid for item
+	 */
+	public void setRandomUUID()
+	{
+		this.nbtItem.setString("unique", UUID.randomUUID().toString());
+		this.saveNBT();
 	}
 
 	/**
@@ -227,26 +241,6 @@ public class PokeEggItem
 								lore.add(this.plugin.color(tradeEnchantLore.replace("%item%", sSellItemName).replace("%enchant%", sSellItemEnchantName).replace("%level%", sSellItemEnchantLevel)));
 							}
 
-
-
-							// // verify StoredEnchantes
-							// if(nbtSell.getCompound("tag").has("StoredEnchantments")) {
-							// 	ReadWriteNBTCompoundList nbtEnchants = nbtSell.getCompound("tag").getCompoundList("StoredEnchantments");
-
-							// 		// loop enchants
-							// 		for(ReadWriteNBT nbtEnchant : nbtEnchants) {
-
-							// 			String enchantKey = nbtEnchant.getString("id");
-							// 			int enchantLevel = nbtEnchant.getInteger("lvl");
-
-							// 			// translate and add to lore
-							// 			String sSellItemName = this.plugin.langs.getTranslation("enchantment." + enchantKey.replace(":", ".") ) + " "  + this.plugin.langs.getTranslation("enchantment.level." + enchantLevel ) ;
-										
-							// 			lore.add(sSellItemName);
-							// 		}
-									
-							// }
-
 						}
 
 
@@ -259,16 +253,66 @@ public class PokeEggItem
 			this.pokeegg.setItemMeta(meta);
 
 		}
-
-		// // change lore of item (if villager, show itens to sell and profission)
-		// ItemMeta meta = item.getItemMeta();
-		// ArrayList<String> lore = new ArrayList<String>();
-		// for (String s : this.plugin.getConfig().getStringList("unique.nonempty-lore")) {
-		// 	lore.add(this.plugin.color(s));
-		// }
-		// meta.setLore(lore);
-		// item.setItemMeta(meta);
 	}
+
+	/**
+	 * register recipe
+	 */
+	public static void registerRecipe(AMFPokeEgg plugin, boolean unique)
+	{
+		FileConfiguration config = plugin.getConfig();
+
+		ItemStack pokeegg = new PokeEggItem(plugin).getItemStack();
+
+		ShapedRecipe recipe;
+
+		if(unique) {
+
+			// String Pos1 = config.getString("unique.craft.A") == "AIR" ? "" : "A";
+			// Pos1 += config.getString("unique.craft.B") == "AIR" ? "" : "B";
+			// Pos1 += config.getString("unique.craft.C") == "AIR" ? "" : "C";
+
+			// String Pos2 = config.getString("unique.craft.D") == "AIR" ? "" : "D";
+			// Pos2 += config.getString("unique.craft.E") == "AIR" ? "" : "E";
+			// Pos2 += config.getString("unique.craft.F") == "AIR" ? "" : "F";
+
+			// String Pos3 = config.getString("unique.craft.G") == "AIR" ? "" : "G";
+			// Pos3 += config.getString("unique.craft.H") == "AIR" ? "" : "H";
+			// Pos3 += config.getString("unique.craft.I") == "AIR" ? "" : "I";
+
+			// recipe = new ShapedRecipe(new NamespacedKey(plugin, "pokeegg-unique"), pokeegg);
+			// recipe.shape(Pos1,Pos2,Pos3);
+			recipe = new ShapedRecipe(new NamespacedKey(plugin, "pokeegg-unique"), pokeegg);
+			recipe.shape("ABC","DEF","GHI");
+
+			recipe.setIngredient('A', Material.valueOf(config.getString("unique.craft.A")));
+			recipe.setIngredient('B', Material.valueOf(config.getString("unique.craft.B")));
+			recipe.setIngredient('C', Material.valueOf(config.getString("unique.craft.C")));
+			recipe.setIngredient('D', Material.valueOf(config.getString("unique.craft.D")));
+			recipe.setIngredient('E', Material.valueOf(config.getString("unique.craft.E")));
+			recipe.setIngredient('F', Material.valueOf(config.getString("unique.craft.F")));
+			recipe.setIngredient('G', Material.valueOf(config.getString("unique.craft.G")));
+			recipe.setIngredient('H', Material.valueOf(config.getString("unique.craft.H")));
+			recipe.setIngredient('I', Material.valueOf(config.getString("unique.craft.I")));
+		}
+		else {
+			recipe = new ShapedRecipe(new NamespacedKey(plugin, "pokeegg-reusable"), pokeegg);
+			recipe.shape("ABC","DEF","GHI");
+
+			recipe.setIngredient('A', Material.valueOf(config.getString("reusable.craft.A")));
+			recipe.setIngredient('B', Material.valueOf(config.getString("reusable.craft.B")));
+			recipe.setIngredient('C', Material.valueOf(config.getString("reusable.craft.C")));
+			recipe.setIngredient('D', Material.valueOf(config.getString("reusable.craft.D")));
+			recipe.setIngredient('E', Material.valueOf(config.getString("reusable.craft.E")));
+			recipe.setIngredient('F', Material.valueOf(config.getString("reusable.craft.F")));
+			recipe.setIngredient('G', Material.valueOf(config.getString("reusable.craft.G")));
+			recipe.setIngredient('H', Material.valueOf(config.getString("reusable.craft.H")));
+			recipe.setIngredient('I', Material.valueOf(config.getString("reusable.craft.I")));
+		}
+
+		Bukkit.addRecipe(recipe);
+	}
+
 
 
 }

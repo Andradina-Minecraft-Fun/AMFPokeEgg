@@ -13,10 +13,12 @@ Tested on PaperMC 1.20.2
 - [ ] configure chance per mobs
 - [ ] configure if use original entity eggs (this can prevent change spawner type, but, if you want, you can use original eggs)
 - [ ] configure permission by entity
-- [ ] create a craft for unique or reusable
+- [x] create a craft for unique
+- [ ] create a craft for reusable
 - [ ] add reusable items
 - [x] add placeholders for messages
 - [ ] look at the face of block clicked and add +1 block in direction of player, to prevent mob stuck on wall
+- [x] pokeegg when slimeball, can be usade to craft itens like slimeball, prevent it
 
 # Integrations
 - [x] prevent catch and release mobs on protected area on RedProtec
