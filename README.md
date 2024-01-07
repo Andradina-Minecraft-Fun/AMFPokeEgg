@@ -1,5 +1,7 @@
 # AMFPokeEgg
-An pokeegg to catch mobs
+An PokeEgg to catch and release mobs
+
+# 
 
 # Features
 - [x] command to give the poke
