@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -14,14 +14,14 @@ import org.bukkit.inventory.ItemStack;
  */
 public class CatchListener implements Listener
 {
-	protected AMFPokeEgg plugin;
+	protected PokeEgg plugin;
 
 	/**
 	 * constructor
 	 * 
 	 * @param plugin
 	 */
-	public CatchListener(AMFPokeEgg plugin)
+	public CatchListener(PokeEgg plugin)
 	{
 		this.plugin = plugin;
 	}

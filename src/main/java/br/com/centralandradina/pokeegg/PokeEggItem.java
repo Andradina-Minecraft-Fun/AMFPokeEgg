@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTCompoundList;
@@ -31,14 +31,14 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class PokeEggItem
 {
-	protected AMFPokeEgg plugin;
+	protected PokeEgg plugin;
 	protected ItemStack pokeegg;
 	NBTItem nbtItem;
 
 	/**
 	 * constructor
 	 */
-	public PokeEggItem(AMFPokeEgg plugin)
+	public PokeEggItem(PokeEgg plugin)
 	{
 		this.plugin = plugin;
 
@@ -63,7 +63,7 @@ public class PokeEggItem
 	/**
 	 * constructor of existing itemstack
 	 */
-	public PokeEggItem(ItemStack item, AMFPokeEgg plugin)
+	public PokeEggItem(ItemStack item, PokeEgg plugin)
 	{
 		this.pokeegg = item;
 		this.plugin = plugin;
@@ -260,7 +260,7 @@ public class PokeEggItem
 	/**
 	 * register recipe
 	 */
-	public static void registerRecipe(AMFPokeEgg plugin, boolean unique)
+	public static void registerRecipe(PokeEgg plugin, boolean unique)
 	{
 		FileConfiguration config = plugin.getConfig();
 

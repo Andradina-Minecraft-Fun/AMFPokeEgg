@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import br.com.centralandradina.LanguageUtils;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * main class
  */
-public class AMFPokeEgg extends JavaPlugin 
+public class PokeEgg extends JavaPlugin 
 {
 
 	public LanguageUtils langs;
@@ -111,7 +111,7 @@ public class AMFPokeEgg extends JavaPlugin
 		}
 
 		// all ok
-		getLogger().info("AMFPokeEgg enabled");
+		getLogger().info("PokeEgg enabled");
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class AMFPokeEgg extends JavaPlugin
 		Bukkit.removeRecipe(new NamespacedKey(this, "pokeegg-unique"));
 		Bukkit.removeRecipe(new NamespacedKey(this, "pokeegg-reusable"));
 
-		getLogger().info("AMFPokeEgg disabled");
+		getLogger().info("PokeEgg disabled");
 	}
 
 	/**

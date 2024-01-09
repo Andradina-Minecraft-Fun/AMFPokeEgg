@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
  */
 public class CommandsExecutor implements CommandExecutor
 {
-	protected AMFPokeEgg plugin;
+	protected PokeEgg plugin;
 
 	/**
 	 * constructor
 	 */
-	public CommandsExecutor(AMFPokeEgg plugin)
+	public CommandsExecutor(PokeEgg plugin)
 	{
         this.plugin = plugin;
     }

@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,12 +9,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class CraftListener implements Listener
 {
-	protected AMFPokeEgg plugin;
+	protected PokeEgg plugin;
 	
 	/**
 	 * constructor
 	 */
-	public CraftListener(AMFPokeEgg plugin)
+	public CraftListener(PokeEgg plugin)
 	{
 		this.plugin = plugin;
 	}

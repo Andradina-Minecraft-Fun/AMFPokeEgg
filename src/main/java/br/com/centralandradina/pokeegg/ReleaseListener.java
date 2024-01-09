@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import de.tr7zw.nbtapi.NBTContainer;
 import de.tr7zw.nbtapi.NBTEntity;
@@ -19,9 +19,9 @@ import org.bukkit.inventory.ItemStack;
 
 public class ReleaseListener implements Listener 
 {
-	protected AMFPokeEgg plugin;
+	protected PokeEgg plugin;
 	
-	public ReleaseListener(AMFPokeEgg plugin) {
+	public ReleaseListener(PokeEgg plugin) {
 		this.plugin = plugin;
 	}
 

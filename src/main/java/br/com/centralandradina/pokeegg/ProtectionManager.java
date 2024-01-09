@@ -1,4 +1,4 @@
-package br.com.centralandradina.amfpokeegg;
+package br.com.centralandradina.pokeegg;
 
 import br.net.fabiozumbi12.RedProtect.Bukkit.RedProtect;
 import br.net.fabiozumbi12.RedProtect.Bukkit.Region;
@@ -21,14 +21,14 @@ import org.bukkit.plugin.PluginManager;
  */
 public class ProtectionManager 
 {
-	protected AMFPokeEgg plugin;
+	protected PokeEgg plugin;
 	protected boolean pluginRedProtect = false;
 	protected boolean pluginWorldGuard = false;
 
 	/**
 	 * constructor
 	 */
-	public ProtectionManager(AMFPokeEgg plugin)
+	public ProtectionManager(PokeEgg plugin)
 	{
 		this.plugin = plugin;
 

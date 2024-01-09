@@ -1,4 +1,4 @@
-# AMFPokeEgg
+# PokeEgg
 An PokeEgg to catch and release mobs
 
 Tested on PaperMC 1.20.2
