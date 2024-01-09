@@ -94,7 +94,8 @@ public class PokeEgg extends JavaPlugin
 
 		// load language
 		langs = new LanguageUtils(this);
-		langs.loadTranslations("pt_br");
+		// langs.loadTranslations("pt_br");
+		langs.loadTranslations("en_us");
 		// langs.loadTranslations("en_us");
 
 		// register listeners

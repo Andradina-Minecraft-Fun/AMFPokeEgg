@@ -1,13 +1,19 @@
 package br.com.centralandradina;
 
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 
 
 
@@ -32,9 +38,41 @@ public class LanguageUtils
 	{
 		this.language = language;
 		String languageFilePath = this.plugin.getDataFolder() + "/languages/" + language + ".json";
+		String mcVersion = "1.20.2";
+		String languageUrl = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/" + mcVersion + "/assets/minecraft/lang/" + language + ".json";
 
+		// verify if language file exists
+		File file = new File(languageFilePath);
+		if(!file.exists()) {
+			plugin.getLogger().warning("language not found, trying to download");
+
+			// verify if directory exists
+			File dir = new File(this.plugin.getDataFolder() + "/languages/");
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+
+			// if not, download from 
+			try (BufferedInputStream in = new BufferedInputStream(new URL(languageUrl).openStream());
+			FileOutputStream fileOutputStream = new FileOutputStream(languageFilePath)) {
+				byte dataBuffer[] = new byte[1024];
+				int bytesRead;
+				while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+					fileOutputStream.write(dataBuffer, 0, bytesRead);
+				}
+
+				file = new File(languageFilePath);
+
+				plugin.getLogger().warning("language downloaded");
+			}
+			catch (IOException e) {
+				plugin.getLogger().severe("02: " + e.getMessage());
+			}
+		}
+
+		// 
 		try {
-			InputStreamReader reader = new InputStreamReader(new FileInputStream(languageFilePath), StandardCharsets.UTF_8);
+			InputStreamReader reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
 			JSONObject json = (JSONObject) new JSONParser().parse(reader);
 			reader.close();
 
@@ -43,14 +81,16 @@ public class LanguageUtils
 				try {
 					String key = (String) obj;
 					mapping.put(key, (String) json.get(key));
-				} catch (Exception e) {
+				} 
+				catch (Exception e) {
 				}
 			}
 			translations.put(language, mapping);
 			
 		}
 		catch (Exception e) {
-			plugin.getLogger().info(e.getMessage());
+			plugin.getLogger().severe("Cannot load file " + languageFilePath);
+			plugin.getLogger().severe("Extract assets/minecraft/lang/" + language + ".json from your minecraft client .jar, or download from https://mcasset.cloud/" + mcVersion + "/assets/minecraft/lang");
 			e.printStackTrace();
 		}
 
