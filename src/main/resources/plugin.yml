@@ -11,5 +11,5 @@ commands:
   pokeegg:
     description: give a PokeEgg to a player
     # usage: 'Usage: /pokeegg give player'
-    # permission: "pokeegg.give"
+    permission: "pokeegg.give"
     # permission-message: "No permission!"
