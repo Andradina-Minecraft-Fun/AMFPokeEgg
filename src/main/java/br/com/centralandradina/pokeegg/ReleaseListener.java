@@ -38,7 +38,7 @@ public class ReleaseListener implements Listener
 		}
 
 		// if the event is not fired by main hand
-		if (!event.getHand().equals(EquipmentSlot.HAND)) {
+		if ((event.getHand() == null) || (!event.getHand().equals(EquipmentSlot.HAND))) {
 			return;
 		}
 		
